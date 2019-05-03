@@ -7,7 +7,8 @@
     "heroku-postbuild": "babel src --out-dir dist --copy-files",
     "dev": "env-cmd ./config/dev.env nodemon src/index.js --ext js,graphql --exec babel-node",
     "test": "jest",
-    "deploy": "prisma deploy --env-file .env",
+    "deploy-dev": "prisma deploy --env-file ./config/dev.env",
+    "deploy-prod": "prisma deploy --env-file ./config/prod.env",
     "get-schema": "graphql get-schema -p prisma --dotenv config/dev.env"
   },
   "now": {
