@@ -1,5 +1,5 @@
 # source: https://adventure-tracker-7db8b3cc51.herokuapp.com/adventuretracker/dev
-# timestamp: Fri May 24 2019 23:36:15 GMT-0400 (Eastern Daylight Time)
+# timestamp: Sat May 25 2019 13:51:12 GMT-0400 (Eastern Daylight Time)
 
 type AggregateMarker {
   count: Int!
@@ -31,8 +31,7 @@ type Marker implements Node {
   trip: Trip!
   hasReached: Boolean!
   label: String!
-  etaTime: DateTime
-  checkedInTime: DateTime
+  date: DateTime
   lat: Float!
   lng: Float!
   createdAt: DateTime!
@@ -52,8 +51,7 @@ type MarkerConnection {
 input MarkerCreateInput {
   hasReached: Boolean!
   label: String!
-  etaTime: DateTime
-  checkedInTime: DateTime
+  date: DateTime
   lat: Float!
   lng: Float!
   trip: TripCreateOneWithoutMarkersInput!
@@ -67,8 +65,7 @@ input MarkerCreateManyWithoutTripInput {
 input MarkerCreateWithoutTripInput {
   hasReached: Boolean!
   label: String!
-  etaTime: DateTime
-  checkedInTime: DateTime
+  date: DateTime
   lat: Float!
   lng: Float!
 }
@@ -89,10 +86,8 @@ enum MarkerOrderByInput {
   hasReached_DESC
   label_ASC
   label_DESC
-  etaTime_ASC
-  etaTime_DESC
-  checkedInTime_ASC
-  checkedInTime_DESC
+  date_ASC
+  date_DESC
   lat_ASC
   lat_DESC
   lng_ASC
@@ -107,8 +102,7 @@ type MarkerPreviousValues {
   id: ID!
   hasReached: Boolean!
   label: String!
-  etaTime: DateTime
-  checkedInTime: DateTime
+  date: DateTime
   lat: Float!
   lng: Float!
   createdAt: DateTime!
@@ -208,50 +202,28 @@ input MarkerScalarWhereInput {
 
   """All values not ending with the given string."""
   label_not_ends_with: String
-  etaTime: DateTime
+  date: DateTime
 
   """All values that are not equal to given value."""
-  etaTime_not: DateTime
+  date_not: DateTime
 
   """All values that are contained in given list."""
-  etaTime_in: [DateTime!]
+  date_in: [DateTime!]
 
   """All values that are not contained in given list."""
-  etaTime_not_in: [DateTime!]
+  date_not_in: [DateTime!]
 
   """All values less than the given value."""
-  etaTime_lt: DateTime
+  date_lt: DateTime
 
   """All values less than or equal the given value."""
-  etaTime_lte: DateTime
+  date_lte: DateTime
 
   """All values greater than the given value."""
-  etaTime_gt: DateTime
+  date_gt: DateTime
 
   """All values greater than or equal the given value."""
-  etaTime_gte: DateTime
-  checkedInTime: DateTime
-
-  """All values that are not equal to given value."""
-  checkedInTime_not: DateTime
-
-  """All values that are contained in given list."""
-  checkedInTime_in: [DateTime!]
-
-  """All values that are not contained in given list."""
-  checkedInTime_not_in: [DateTime!]
-
-  """All values less than the given value."""
-  checkedInTime_lt: DateTime
-
-  """All values less than or equal the given value."""
-  checkedInTime_lte: DateTime
-
-  """All values greater than the given value."""
-  checkedInTime_gt: DateTime
-
-  """All values greater than or equal the given value."""
-  checkedInTime_gte: DateTime
+  date_gte: DateTime
   lat: Float
 
   """All values that are not equal to given value."""
@@ -384,8 +356,7 @@ input MarkerSubscriptionWhereInput {
 input MarkerUpdateInput {
   hasReached: Boolean
   label: String
-  etaTime: DateTime
-  checkedInTime: DateTime
+  date: DateTime
   lat: Float
   lng: Float
   trip: TripUpdateOneRequiredWithoutMarkersInput
@@ -394,8 +365,7 @@ input MarkerUpdateInput {
 input MarkerUpdateManyDataInput {
   hasReached: Boolean
   label: String
-  etaTime: DateTime
-  checkedInTime: DateTime
+  date: DateTime
   lat: Float
   lng: Float
 }
@@ -403,8 +373,7 @@ input MarkerUpdateManyDataInput {
 input MarkerUpdateManyMutationInput {
   hasReached: Boolean
   label: String
-  etaTime: DateTime
-  checkedInTime: DateTime
+  date: DateTime
   lat: Float
   lng: Float
 }
@@ -428,8 +397,7 @@ input MarkerUpdateManyWithWhereNestedInput {
 input MarkerUpdateWithoutTripDataInput {
   hasReached: Boolean
   label: String
-  etaTime: DateTime
-  checkedInTime: DateTime
+  date: DateTime
   lat: Float
   lng: Float
 }
@@ -538,50 +506,28 @@ input MarkerWhereInput {
 
   """All values not ending with the given string."""
   label_not_ends_with: String
-  etaTime: DateTime
+  date: DateTime
 
   """All values that are not equal to given value."""
-  etaTime_not: DateTime
+  date_not: DateTime
 
   """All values that are contained in given list."""
-  etaTime_in: [DateTime!]
+  date_in: [DateTime!]
 
   """All values that are not contained in given list."""
-  etaTime_not_in: [DateTime!]
+  date_not_in: [DateTime!]
 
   """All values less than the given value."""
-  etaTime_lt: DateTime
+  date_lt: DateTime
 
   """All values less than or equal the given value."""
-  etaTime_lte: DateTime
+  date_lte: DateTime
 
   """All values greater than the given value."""
-  etaTime_gt: DateTime
+  date_gt: DateTime
 
   """All values greater than or equal the given value."""
-  etaTime_gte: DateTime
-  checkedInTime: DateTime
-
-  """All values that are not equal to given value."""
-  checkedInTime_not: DateTime
-
-  """All values that are contained in given list."""
-  checkedInTime_in: [DateTime!]
-
-  """All values that are not contained in given list."""
-  checkedInTime_not_in: [DateTime!]
-
-  """All values less than the given value."""
-  checkedInTime_lt: DateTime
-
-  """All values less than or equal the given value."""
-  checkedInTime_lte: DateTime
-
-  """All values greater than the given value."""
-  checkedInTime_gt: DateTime
-
-  """All values greater than or equal the given value."""
-  checkedInTime_gte: DateTime
+  date_gte: DateTime
   lat: Float
 
   """All values that are not equal to given value."""
@@ -757,7 +703,6 @@ type Trip implements Node {
   markers(where: MarkerWhereInput, orderBy: MarkerOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Marker!]
   description: String
   image: String!
-  date: DateTime
   startDate: DateTime
   endDate: DateTime
   createdAt: DateTime!
@@ -779,7 +724,6 @@ input TripCreateInput {
   archived: Boolean!
   description: String
   image: String!
-  date: DateTime
   startDate: DateTime
   endDate: DateTime
   user: UserCreateOneWithoutTripInput!
@@ -801,7 +745,6 @@ input TripCreateWithoutMarkersInput {
   archived: Boolean!
   description: String
   image: String!
-  date: DateTime
   startDate: DateTime
   endDate: DateTime
   user: UserCreateOneWithoutTripInput!
@@ -812,7 +755,6 @@ input TripCreateWithoutUserInput {
   archived: Boolean!
   description: String
   image: String!
-  date: DateTime
   startDate: DateTime
   endDate: DateTime
   markers: MarkerCreateManyWithoutTripInput
@@ -838,8 +780,6 @@ enum TripOrderByInput {
   description_DESC
   image_ASC
   image_DESC
-  date_ASC
-  date_DESC
   startDate_ASC
   startDate_DESC
   endDate_ASC
@@ -856,7 +796,6 @@ type TripPreviousValues {
   archived: Boolean!
   description: String
   image: String!
-  date: DateTime
   startDate: DateTime
   endDate: DateTime
   createdAt: DateTime!
@@ -1036,28 +975,6 @@ input TripScalarWhereInput {
 
   """All values not ending with the given string."""
   image_not_ends_with: String
-  date: DateTime
-
-  """All values that are not equal to given value."""
-  date_not: DateTime
-
-  """All values that are contained in given list."""
-  date_in: [DateTime!]
-
-  """All values that are not contained in given list."""
-  date_not_in: [DateTime!]
-
-  """All values less than the given value."""
-  date_lt: DateTime
-
-  """All values less than or equal the given value."""
-  date_lte: DateTime
-
-  """All values greater than the given value."""
-  date_gt: DateTime
-
-  """All values greater than or equal the given value."""
-  date_gte: DateTime
   startDate: DateTime
 
   """All values that are not equal to given value."""
@@ -1192,7 +1109,6 @@ input TripUpdateInput {
   archived: Boolean
   description: String
   image: String
-  date: DateTime
   startDate: DateTime
   endDate: DateTime
   user: UserUpdateOneRequiredWithoutTripInput
@@ -1204,7 +1120,6 @@ input TripUpdateManyDataInput {
   archived: Boolean
   description: String
   image: String
-  date: DateTime
   startDate: DateTime
   endDate: DateTime
 }
@@ -1214,7 +1129,6 @@ input TripUpdateManyMutationInput {
   archived: Boolean
   description: String
   image: String
-  date: DateTime
   startDate: DateTime
   endDate: DateTime
 }
@@ -1247,7 +1161,6 @@ input TripUpdateWithoutMarkersDataInput {
   archived: Boolean
   description: String
   image: String
-  date: DateTime
   startDate: DateTime
   endDate: DateTime
   user: UserUpdateOneRequiredWithoutTripInput
@@ -1258,7 +1171,6 @@ input TripUpdateWithoutUserDataInput {
   archived: Boolean
   description: String
   image: String
-  date: DateTime
   startDate: DateTime
   endDate: DateTime
   markers: MarkerUpdateManyWithoutTripInput
@@ -1453,28 +1365,6 @@ input TripWhereInput {
 
   """All values not ending with the given string."""
   image_not_ends_with: String
-  date: DateTime
-
-  """All values that are not equal to given value."""
-  date_not: DateTime
-
-  """All values that are contained in given list."""
-  date_in: [DateTime!]
-
-  """All values that are not contained in given list."""
-  date_not_in: [DateTime!]
-
-  """All values less than the given value."""
-  date_lt: DateTime
-
-  """All values less than or equal the given value."""
-  date_lte: DateTime
-
-  """All values greater than the given value."""
-  date_gt: DateTime
-
-  """All values greater than or equal the given value."""
-  date_gte: DateTime
   startDate: DateTime
 
   """All values that are not equal to given value."""

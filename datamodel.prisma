@@ -33,8 +33,7 @@ type Marker {
   trip: Trip! @relation(name: "MarkerToTrip", onDelete: SET_NULL)
   hasReached: Boolean!
   label: String!
-  etaTime: DateTime
-  checkedInTime: DateTime
+  date: DateTime
   lat: Float!
   lng: Float!
   createdAt: DateTime! @createdAt

@@ -7,6 +7,7 @@ type Mutation {
     title: String!
     startDate: DateTime
     endDate: DateTime
+    date: DateTime
     archived: Boolean!
     image: String!
     markers: [MarkerCreateManyWithoutTripInput!]!
@@ -16,7 +17,7 @@ type Mutation {
     tripId: ID!
     hasReached: Boolean!
     label: String!
-    etaTime: DateTime
+    date: DateTime
     checkedInTime: DateTime
     lat: Float!
     lng: Float!
