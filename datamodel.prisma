@@ -26,6 +26,8 @@ type Trip {
   endDate: DateTime
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt
+  lat: Float!
+  lng: Float!
 }
 
 type Marker {

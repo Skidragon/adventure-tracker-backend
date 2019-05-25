@@ -11,6 +11,8 @@ type Mutation {
     archived: Boolean!
     image: String!
     markers: [MarkerCreateManyWithoutTripInput!]!
+    lat: Float!
+    lng: Float!
   ): Trip!
   updateTrip(id: ID!, data: TripUpdateInput!): Trip!
   createMarkerMutation(

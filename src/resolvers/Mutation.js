@@ -81,7 +81,9 @@ const Mutations = {
           startDate: args.startDate,
           endDate: args.endDate,
           archived: args.archived,
-          image: args.image
+          image: args.image,
+          lat: args.lat,
+          lng: args.lng
         }
       },
       info
