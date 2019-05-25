@@ -1,7 +1,7 @@
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const { getUserId, hashPassword } = require('../lib/utils');
-
+const tokenExpiration = 1000 * 60 * 60 * 24 * 365;
 const Mutations = {
   async signup(parent, args, ctx, info) {
     if (args.password !== args.password2) {
@@ -22,13 +22,16 @@ const Mutations = {
     // We just signed up - so go ahead and log the new user in!
     // create the JWT
     const token = jwt.sign({ userId: user.id }, process.env.APP_SECRET);
-
     // we set the jwt as a cookie on the response
     ctx.response.cookie('token', token, {
       httpOnly: true,
-      maxAge: 1000 * 60 * 60 * 24 * 365 // 1 year cookie
+      secure: true,
+      maxAge: tokenExpiration,
+      sameSite: 'lax'
     });
-
+    ctx.response.cookie('ux', '', {
+      maxAge: tokenExpiration
+    });
     // Return the user to the browser
     return user;
   },
@@ -48,7 +51,11 @@ const Mutations = {
     // set the cookie with the token
     ctx.response.cookie('token', token, {
       httpOnly: true,
-      maxAge: 1000 * 60 * 60 * 24 * 365
+      maxAge: tokenExpiration,
+      sameSite: 'lax'
+    });
+    ctx.response.cookie('ux', '', {
+      maxAge: tokenExpiration
     });
     // return the user
     return user;
