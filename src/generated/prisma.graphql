@@ -1,5 +1,5 @@
 # source: https://adventure-tracker-7db8b3cc51.herokuapp.com/adventuretracker/dev
-# timestamp: Thu May 02 2019 21:07:37 GMT-0400 (Eastern Daylight Time)
+# timestamp: Fri May 24 2019 23:36:15 GMT-0400 (Eastern Daylight Time)
 
 type AggregateMarker {
   count: Int!
@@ -757,6 +757,7 @@ type Trip implements Node {
   markers(where: MarkerWhereInput, orderBy: MarkerOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Marker!]
   description: String
   image: String!
+  date: DateTime
   startDate: DateTime
   endDate: DateTime
   createdAt: DateTime!
@@ -778,6 +779,7 @@ input TripCreateInput {
   archived: Boolean!
   description: String
   image: String!
+  date: DateTime
   startDate: DateTime
   endDate: DateTime
   user: UserCreateOneWithoutTripInput!
@@ -799,6 +801,7 @@ input TripCreateWithoutMarkersInput {
   archived: Boolean!
   description: String
   image: String!
+  date: DateTime
   startDate: DateTime
   endDate: DateTime
   user: UserCreateOneWithoutTripInput!
@@ -809,6 +812,7 @@ input TripCreateWithoutUserInput {
   archived: Boolean!
   description: String
   image: String!
+  date: DateTime
   startDate: DateTime
   endDate: DateTime
   markers: MarkerCreateManyWithoutTripInput
@@ -834,6 +838,8 @@ enum TripOrderByInput {
   description_DESC
   image_ASC
   image_DESC
+  date_ASC
+  date_DESC
   startDate_ASC
   startDate_DESC
   endDate_ASC
@@ -850,6 +856,7 @@ type TripPreviousValues {
   archived: Boolean!
   description: String
   image: String!
+  date: DateTime
   startDate: DateTime
   endDate: DateTime
   createdAt: DateTime!
@@ -1029,6 +1036,28 @@ input TripScalarWhereInput {
 
   """All values not ending with the given string."""
   image_not_ends_with: String
+  date: DateTime
+
+  """All values that are not equal to given value."""
+  date_not: DateTime
+
+  """All values that are contained in given list."""
+  date_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  date_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  date_lt: DateTime
+
+  """All values less than or equal the given value."""
+  date_lte: DateTime
+
+  """All values greater than the given value."""
+  date_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  date_gte: DateTime
   startDate: DateTime
 
   """All values that are not equal to given value."""
@@ -1163,6 +1192,7 @@ input TripUpdateInput {
   archived: Boolean
   description: String
   image: String
+  date: DateTime
   startDate: DateTime
   endDate: DateTime
   user: UserUpdateOneRequiredWithoutTripInput
@@ -1174,6 +1204,7 @@ input TripUpdateManyDataInput {
   archived: Boolean
   description: String
   image: String
+  date: DateTime
   startDate: DateTime
   endDate: DateTime
 }
@@ -1183,6 +1214,7 @@ input TripUpdateManyMutationInput {
   archived: Boolean
   description: String
   image: String
+  date: DateTime
   startDate: DateTime
   endDate: DateTime
 }
@@ -1215,6 +1247,7 @@ input TripUpdateWithoutMarkersDataInput {
   archived: Boolean
   description: String
   image: String
+  date: DateTime
   startDate: DateTime
   endDate: DateTime
   user: UserUpdateOneRequiredWithoutTripInput
@@ -1225,6 +1258,7 @@ input TripUpdateWithoutUserDataInput {
   archived: Boolean
   description: String
   image: String
+  date: DateTime
   startDate: DateTime
   endDate: DateTime
   markers: MarkerUpdateManyWithoutTripInput
@@ -1419,6 +1453,28 @@ input TripWhereInput {
 
   """All values not ending with the given string."""
   image_not_ends_with: String
+  date: DateTime
+
+  """All values that are not equal to given value."""
+  date_not: DateTime
+
+  """All values that are contained in given list."""
+  date_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  date_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  date_lt: DateTime
+
+  """All values less than or equal the given value."""
+  date_lte: DateTime
+
+  """All values greater than the given value."""
+  date_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  date_gte: DateTime
   startDate: DateTime
 
   """All values that are not equal to given value."""
