@@ -2,7 +2,7 @@ require('@babel/polyfill/noConflict');
 const cookieParser = require('cookie-parser');
 const secure = require('express-force-https');
 const jwt = require('jsonwebtoken');
-require('dotenv').config({ path: 'config/dev.env', debug: true });
+require('dotenv').config({ path: 'config/local.env', debug: true });
 const createServer = require('./createServer');
 const db = require('./db');
 
