@@ -94,6 +94,15 @@ const Mutations = {
     if (!userId) {
       throw new Error("Can't update trip if not logged in");
     }
+    const tripExists = await ctx.db.exists.Trip({
+      id: args.id,
+      user: {
+        id: userId
+      }
+    });
+    if (!tripExists) {
+      throw new Error('Either the trip does not exist or you are not the author of this trip.');
+    }
     return ctx.db.mutation.updateTrip(
       {
         where: {
