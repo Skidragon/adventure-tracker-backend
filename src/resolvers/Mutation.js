@@ -4,6 +4,13 @@ const { getUserId, hashPassword } = require('../lib/utils');
 const tokenExpiration = 1000 * 60 * 60 * 24 * 365;
 const Mutations = {
   async signup(parent, args, ctx, info) {
+    const userExists = await ctx.db.exists.User({
+      email: args.email
+    });
+
+    if (userExists) {
+      throw new Error(`Sorry, user with ${args.email} already exists.`);
+    }
     if (args.password !== args.password2) {
       throw new Error('Passwords do not match!');
     }
@@ -27,9 +34,6 @@ const Mutations = {
       httpOnly: true,
       maxAge: tokenExpiration
     });
-    ctx.response.cookie('ux', '', {
-      maxAge: tokenExpiration
-    });
     // Return the user to the browser
     return user;
   },
@@ -49,9 +53,6 @@ const Mutations = {
     // set the cookie with the token
     ctx.response.cookie('token', token, {
       httpOnly: true,
-      maxAge: tokenExpiration
-    });
-    ctx.response.cookie('ux', '', {
       maxAge: tokenExpiration
     });
     // return the user
