@@ -24,6 +24,7 @@ type Mutation {
     lat: Float!
     lng: Float!
   ): Marker!
+  logout: User
 }
 
 type Query {

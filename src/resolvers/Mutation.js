@@ -58,6 +58,10 @@ const Mutations = {
     // return the user
     return user;
   },
+  async logout(parent, args, ctx, info) {
+    ctx.response.cookie('token', '', {});
+    return null;
+  },
   async createTrip(parent, args, ctx, info) {
     if (!ctx.request.userId) {
       throw new Error('You must be logged in to do that!');
